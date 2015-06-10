@@ -1,8 +1,7 @@
 "use strict";
 
-// es5 polyfills, powered by es5-shim
-require("es5-shim")
-// es6 polyfills, powered by babel
+
+require("es5-shim")   
 require("babel/register")
 
 var Promise = require('es6-promise').Promise
@@ -17,43 +16,84 @@ import * as api from './etsy-api.js'
 
 
 var EtsyRouter = Backbone.Router.extend({
-	routes: {
-		'listings/:id': 'details',
-		'search/:keywords': 'search',
-		'*default':'home'
-	},
-	home: function(anything){
+    routes: {
+        'listings/:id/:shop_id': 'details',
+        'search/:keywords': 'search',
+        '*default': 'home',
+        'listings/:id': 'listing'
+    },
+    home: function(anything) {
 
-		api.getListings().then((etsyListings_json)=> {
-			console.log(etsyListings_json)
+        api.getListings().then((etsyListings_json) => {
+            console.log(etsyListings_json)
 
-			document.body.innerHTML= templates.home(etsyListings_json.results)
-		})
-	},
-	details:function(id){
-		api.getListing(id).then((etsyListing_json)=>{
-			var v = etsyListing_json.results[0]
-		document.body.innerHTML = templates.details(v) 
-	})
-},
-search: function(keywords) {
-	api.getItems(keywords).then((keywords_json)=> {
+            document.body.innerHTML = templates.home(etsyListings_json.results)
+        })
+    },
 
-	document.body.innerHTML=templates.home(keywords_json.results)
+    details: function(id, shop_id) {
+
+        $.when(
+            api.getListing(id),
+            api.getShop(shop_id)
+        ).then((etsyListing_json, etsyShop_json) => {
+
+            console.log(etsyListing_json)
+            console.log(etsyShop_json)
+
+            var listingData = etsyListing_json.results
+            var shopData = etsyShop_json.results
+            document.body.innerHTML = templates.details(listingData, shopData)
+        })
+    },
+    search: function(keywords) {
+        api.getItems(keywords).then((keywords_json) => {
+
+            document.body.innerHTML = templates.home(keywords_json.results)
+
+        })
+    },
+
+        listing: function(id) {
+                api.getListing(id).then((Listing_json) => {
+
+                    document.body.innerHTML = templates.details(Listing_json.results)
+
+                })
+            },
+
+    
+
+    initialize: function() {
+        Backbone.history.start()
+
+    },
 })
 
-},
-	initialize:function(){
-		Backbone.history.start()
 
-	},
-})
 
 var router = new EtsyRouter()
 
-// if (form_search) {
+
 $('body').on('submit', 'form.search_form', (event) => {
     event.preventDefault();
-	window.location.hash = `search/${document.querySelector(".search_item").value}`
+    window.location.hash = `search/${document.querySelector(".search_item").value}`
 })
+
+// just Node?
+// var fetch = require('node-fetch')
+// Browserify?
+// require('whatwg-fetch') //--> not a typo, don't store as a var
+
+// other stuff that we don't really use in our own code
+// var Pace = require("../bower_components/pace/pace.js")
+
+// require your own libraries, too!
+// var Router = require('./app.js')
+
+// window.addEventListener('load', app)
+
+// function app() {
+// start app
+// new Router()
 // }

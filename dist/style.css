@@ -93,7 +93,7 @@ header{
 }
 
 .aside_all{
-	border:2px solid blue;
+	/*border:2px solid blue;*/
 	display: inline-block;
 	float: left;
 	width: 25%;
@@ -107,7 +107,7 @@ h5{
 	padding-bottom: 9px; 
 }
 .aside_inner{
-	border:2px solid red;
+	/*border:2px solid red;*/
 	background-color: white;
 }
 
@@ -126,7 +126,7 @@ li{
 	text-decoration: none;
 }
 .grid{
-	border:2px solid red;
+	/*border:2px solid red;*/
 
 	float: left;
 	width: 70%;
@@ -172,13 +172,13 @@ li{
 
 .grid_inner{
 	display: block;
-	border: 2px solid yellow;
+	/*border: 2px solid yellow;*/
 }
 
 .grid_cell{
 	display: inline-block; 
 	float: left;
-	border: solid red;  
+	/*border: solid red; */ 
 	width: 33.33333%;
 	position: relative;
 	margin: 0;
@@ -189,7 +189,7 @@ li{
 .cell_info{
 	display: inline-block;
 	width: 100%;
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	background-color: white;
 
 }
