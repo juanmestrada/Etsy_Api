@@ -42,7 +42,7 @@ export var details = (url, title) => '${toolbar()}
                 <div class="listing_left">
                     <div id="image_wrapper">
                         <div id="main_image">
-                            <img src=""${url}"">
+                            <img src=""${details_item.Images[0]}">
                         </div>
                         <div id="other_images"> 
                             <ul id="image_list">
@@ -62,14 +62,14 @@ export var details = (url, title) => '${toolbar()}
                         </div>
                     </div>
                     <div class="listing_description">
-                        <div class="description_text"><br>Test<br><br>Test<br><br>Test<br><br><br>Test</div>
+                        <div class="description_text">${details_item.description}<br>Test<br><br>Test<br><br>Test<br><br><br>Test</div>
                     </div>
                 </div>
                 <div class="listing_right">
                     <div class="listing_cart_area">
                         <div class="listing_overview">
                             <div id="listing_right_text">
-                                <h1><span id="lisitng_right_title">Test</span></h1>
+                                <h1><span id="lisitng_right_title">${details_item.title}</span></h1>
                             </div>
                             <div class="listing_right_overview">
                                 <h3>Overview</h3>
@@ -208,8 +208,9 @@ export var home = (Etsy) => '${toolbar()}
 
                         <div class="cell_info">
                             <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
+                             ${trending_items.map((trending_item) =>{
+                                return <a href= "#details/${trending_item.listing_id}">
+                                    <img src="${trending_item.Images[0].url_570xN}">
                                 </a>
                             </div>
                             <div class="etsy_details_box">
@@ -217,17 +218,18 @@ export var home = (Etsy) => '${toolbar()}
                                     <p/>test item details</p>
                                 </div>
                                 <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
+                                    <p>${trending_item.title}<span class="etsy_seller_price">${trending_item.price}</span><p>
                                 </div>
+                                }).join('')
+                                } 
                             </div>
                         </div>  
-                    </div>
-                    <div class="grid_cell">
-
+                    
                         <div class="cell_info">
                             <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
+                             ${trending_items.map((trending_item) =>{
+                                return <a href= "#details/${trending_item.listing_id}">
+                                    <img src="${trending_item.Images[0].url_570xN}">
                                 </a>
                             </div>
                             <div class="etsy_details_box">
@@ -235,17 +237,37 @@ export var home = (Etsy) => '${toolbar()}
                                     <p/>test item details</p>
                                 </div>
                                 <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
+                                    <p>${trending_item.title}<span class="etsy_seller_price">${trending_item.price}</span><p>
                                 </div>
+                                }).join('')
+                                } 
                             </div>
                         </div>  
-                    </div>
-                    <div class="grid_cell">
 
+                         <div class="cell_info">
+                            <div id="etsy_item" >
+                             ${trending_items.map((trending_item) =>{
+                                return <a href= "#details/${trending_item.listing_id}">
+                                    <img src="${trending_item.Images[0].url_570xN}">
+                                </a>
+                            </div>
+                            <div class="etsy_details_box">
+                                <div class="etsy_details">
+                                    <p/>test item details</p>
+                                </div>
+                                <div class="etsy_details_seller">
+                                    <p>${trending_item.title}<span class="etsy_seller_price">${trending_item.price}</span><p>
+                                </div>
+                                }).join('')
+                                } 
+                            </div>
+                        </div>  
+                    
                         <div class="cell_info">
                             <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
+                             ${trending_items.map((trending_item) =>{
+                                return <a href= "#details/${trending_item.listing_id}">
+                                    <img src="${trending_item.Images[0].url_570xN}">
                                 </a>
                             </div>
                             <div class="etsy_details_box">
@@ -253,64 +275,17 @@ export var home = (Etsy) => '${toolbar()}
                                     <p/>test item details</p>
                                 </div>
                                 <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
+                                    <p>${trending_item.title}<span class="etsy_seller_price">${trending_item.price}</span><p>
                                 </div>
+                                }).join('')
+                                } 
                             </div>
                         </div>  
-                    </div>
-                    <div class="grid_cell">
 
-                        <div class="cell_info">
-                            <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
-                                </a>
-                            </div>
-                            <div class="etsy_details_box">
-                                <div class="etsy_details">
-                                    <p/>test item details</p>
-                                </div>
-                                <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="grid_cell">
 
-                        <div class="cell_info">
-                            <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
-                                </a>
-                            </div>
-                            <div class="etsy_details_box">
-                                <div class="etsy_details">
-                                    <p/>test item details</p>
-                                </div>
-                                <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="grid_cell">
 
-                        <div class="cell_info">
-                            <div id="etsy_item" >
-                                <a href="#">
-                                    <img src="${url}">
-                                </a>
-                            </div>
-                            <div class="etsy_details_box">
-                                <div class="etsy_details">
-                                    <p/>test item details</p>
-                                </div>
-                                <div class="etsy_details_seller">
-                                    <p>Test Seller<span class="etsy_seller_price">Test</span><p>
-                                </div>
-                            </div>
-                        </div>  
+
+
                     </div>
                 </div>  
             </div>
