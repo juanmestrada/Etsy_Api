@@ -14,30 +14,29 @@ export var getListings = () => {
             console.log(data);
             return data     
         })
-}
+	}
 
-export var getListing = (listing_id) => {
-	
-	return $.getJSON(listing(apikey, listing_id))
-	.then((info) => {
-		return info
+	export var getListing = (listing_id) => {
+		
+		return $.getJSON(listing(apikey, listing_id))
+		.then((info) => {
+			return info
+		})
+	}
+
+
+
+	export var getItems = (category_path)=>{
+		return $.getJSON(searchable(apikey, category_path))
+		.then((item_info) => { 
+			return item_info
+		})
+	}
+
+	export var getShop = (shop_id) => { 
+		return $.getJSON(shop_search(apikey, shop_id))
+			.then((shop_info)=> {
+				return shop_info
+
 	})
-}
-
-
-//not known yet
-
-export var getItems = (category_path)=>{
-	return $.getJSON(searchable(apikey, category_path))
-	.then((item_info) => { 
-		return item_info
-	})
-}
-
-export var getShop = (shop_id) => { 
-	return $.getJSON(shop_search(apikey, shop_id))
-		.then((shop_info)=> {
-			return shop_info
-
-})
 }

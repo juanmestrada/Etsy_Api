@@ -26,14 +26,13 @@ searchable = (key, category_path) => `https://openapi.etsy.com/v2/listings/activ
 
 var EtsyRouter = Backbone.Router.extend({
     routes: {
-        
         'listings/:id/:shop_id': 'details',
         'search/:keywords': 'search',
         '*default': 'home',
         'listings/:id': 'listing'
-        
     },
-    home: function() {
+    home: function(anything) {
+
         api.getListings().then((etsyListings_json) => {
             console.log(etsyListings_json)
             this.etsyListings = etsyListings_json.results
@@ -41,13 +40,6 @@ var EtsyRouter = Backbone.Router.extend({
             document.body.innerHTML = templates.homePage(this.etsyListings)
             console.log(this);
         }.bind(this))
-    },
-      search: function(keywords) {
-        api.getItems(keywords).then((keywords_json) => {
-
-            document.body.innerHTML = templates.homePage(keywords_json.results)
-
-        })
     },
 
     details: function(id, shop_id) {
@@ -83,9 +75,15 @@ var EtsyRouter = Backbone.Router.extend({
             
         }.bind(this))
 
-
-        
     },
+    search: function(keywords) {
+        api.getItems(keywords).then((keywords_json) => {
+
+            document.body.innerHTML = templates.homePage(keywords_json.results)
+
+        })
+    },
+
     listing: function(id) {
         api.getListing(id).then((Listing_json) => {
 
@@ -93,27 +91,42 @@ var EtsyRouter = Backbone.Router.extend({
 
         })
     },
-
-
-    initialize: function() {
+    
+    initialize:function() {
         Backbone.history.start()
+    }
 
-    },
 })
 
+
+
+
 var router = new EtsyRouter()
+
 $('body').on('submit', 'form.search_form', (event) => {
     event.preventDefault();
     window.location.hash = `search/${document.querySelector(".search_item").value}`
 })
+
  $('body').on('change', 'input.sale', (event) => {
     event.preventDefault();
     console.log(event.target)
     
     console.log($(event.target).context.checked)
-    $(event.target).context.checked===true ? window.location.hash = `search/sale` : window.location.hash = `homePage`
+    $(event.target).context.checked===true ? window.location.hash = `search/sale` : window.location.hash = `home`
  
        })
+
+
+
+
+
+
+
+
+
+
+
 
 /*var detailsScreen= details()
 var homeScreen= homePage()*/

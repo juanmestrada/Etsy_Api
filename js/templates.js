@@ -1,16 +1,12 @@
 
 
 
-var toolbar = () => `<header id="top">
+var toolbar = (listing) => `<header id="top">
         <div class="container_nav">
-            <div class="logo_nav" >
-              <a class="log "href="https://medium.com/@jestradaf22">Etsy</a>
-            </div>
-
             <div class="search_nav">   
-               <form id="searchbox_nav" action="">
-                  <input id="search" class="search_item" type="search" placeholder="Search For Items">
-                  <input id="submit" type="submit" value="Search">
+               <form class='search_form'>
+                  <input id="search"  type="search" class="search_item" placeholder="Search">
+                  <input id="submit" type="submit" class="submit" value="Search">
              </form>
             </div>
 
@@ -40,6 +36,15 @@ var grid_cell = () => `<div class="grid_cell">
 
 
 export var homePage = (listing) => { 
+    
+    var hashRoute = window.location.hash;
+
+var saleCheckedStatus;
+
+(hashRoute.indexOf('sale') > -1) ? saleCheckedStatus = 'checked' : saleCheckedStatus = ''
+console.log('testing indexOf sale in hashroute...')
+console.log(hashRoute.indexOf('sale'))
+
     return `${toolbar()} 
     <div class="content">
             <div class="aside_all">
@@ -95,7 +100,7 @@ export var homePage = (listing) => {
                     </div>
                     <div class="grid_right"><span class="grid_info_common">Sort By:<span class="grid_info_etzy">Revelancy</span></span></div>
                 </div>
-                <div class="grid_inner ">
+                <div class="grid_inner grid-2-400 grid-4-800">
                     
                 
      ${listing.map((v, i) => {
@@ -128,7 +133,7 @@ export var homePage = (listing) => {
 }
 
 export var details = (listingData, shopData, etsyListings) => { 
-    /*var mappedImages = listingData[0].Images.map((imageObj) => {
+    var mappedImages = listingData[0].Images.map((imageObj) => {
         return `<img src="${imageObj.url_570xN}">`
     })
 
@@ -148,7 +153,7 @@ export var details = (listingData, shopData, etsyListings) => {
                 currentIndex = i;
             }
         })
-  */
+  
     return `${toolbar()}
    <div class="details_content">
         <div class="details_body">
@@ -156,41 +161,35 @@ export var details = (listingData, shopData, etsyListings) => {
                 <div class="listing_left">
                     <div id="image_wrapper">
                         <div id="main_image">
+                            <a href ='#listings/${etsyListings[Math.max(0,currentIndex-1)].listing_id}/${etsyListings[Math.max(0,currentIndex-1)].Shop.shop_id}' class="arrow-left">  </a> 
+                ${mainImage}
+                <a href ='#listings/${etsyListings[Math.min(25, currentIndex+1)].listing_id}/${etsyListings[Math.min(25, currentIndex+1)].Shop.shop_id}' class="arrow-right"> </a> 
+                 
                             <img src="">
                         </div>
                         <div id="other_images"> 
                             <ul id="image_list">
-                                <li id="image-0" image-index="0">
-                                    <img src="#">
-                                </li>
-                                <li id="image-1" image-index="1">
-                                    <img src="#">
-                                </li>
-                                <li id="image-2" image-index="2">
-                                    <img src="#">
-                                </li>
-                                <li id="image-3" image-index="3">
-                                    <img src="#">
-                                </li>
+                            ${secondaryImages}
+                                
                             </ul>
                         </div>
                     </div>
                     <div class="listing_description">
-                        <div class="description_text"><br>Test<br><br>Test<br><br>Test<br><br><br>Test</div>
+                        <div class="description_text"><br>${listingData[0].description}<br></div>
                     </div>
                 </div>
                 <div class="listing_right">
                     <div class="listing_cart_area">
                         <div class="listing_overview">
                             <div id="listing_right_text">
-                                <h1><span id="lisitng_right_title"></span></h1>
+                                <h6><span id="lisitng_right_title">${listingData[0].title}</span><br><br>$${listingData[0].price}</h6>
                             </div>
                             <div class="listing_right_overview">
-                                <h3>Overview</h3>
+                                <h7><strong>Overview</strong></h7>
                                 <ul classs="listing_properties">
-                                    <li>Handmade Item</li>
-                                    <li>Materials:<span id="listing_materials"></span</li>
-                                    <li>FeedBack:<span id="listing_feedback"></span></li>
+                                    <li>Handmade Item ${listingData[0].used_manufacturer}</li>
+                                    <li>Materials:<span id="listing_materials"> ${listingData[0].materials}</span</li>
+                                    <li>Favorited by:<span id="listing_feedback"> ${listingData[0].num_favorers} people</span></li>
                                     <li></li>
                                     <li></li>
                                 </ul>
@@ -200,55 +199,15 @@ export var details = (listingData, shopData, etsyListings) => {
                     <div class="related_listings_wrapper">
                         <div class="related_listings">
                             <div id="seller_info">
-                                <div id="avatar"></div>
+                                <div id="avatar">
+                                    
+                                </div>
                                 <div id="shop_name"></div>
                             </div>
                             <div id="other_items">
+                                <h6> Other Items available from this seller:  </h6>
                                 <ul>
-                                    <div class="other_items_cell">
-                                        <div  class="other_items_image">
-                                        <a  href="#">
-                                            <img src="">
-                                        </a>
-                                        </div>
-                                        <div class="other_items_cell_info">
-                                            <div id="other_items_cell_details">Test</div>
-                                            <div id="other_items_cell_price">$test</div>
-                                        </div>  
-                                    </div>
-                                    <div class="other_items_cell">
-                                        <div  class="other_items_image">
-                                        <a  href="#">
-                                            <img src="">
-                                        </a>
-                                        </div>
-                                        <div class="other_items_cell_info">
-                                            <div id="other_items_cell_details">Test</div>
-                                            <div id="other_items_cell_price">$test</div>
-                                        </div>  
-                                    </div>
-                                    <div class="other_items_cell">
-                                        <div  class="other_items_image">
-                                        <a  href="#"/>
-                                            <img src=""/>
-                                        </a>
-                                        </div>
-                                        <div class="other_items_cell_info">
-                                            <div id="other_items_cell_details">Test</div>
-                                            <div id="other_items_cell_price">$test</div>
-                                        </div>  
-                                    </div>
-                                    <div class="other_items_cell">
-                                        <div  class="other_items_image">
-                                        <a  href="#"/>
-                                            <img src=""/>
-                                        </a>
-                                        </div>
-                                        <div class="other_items_cell_info">
-                                            <div id="other_items_cell_details">Test</div>
-                                            <div id="other_items_cell_price">$test</div>
-                                        </div>  
-                                    </div>
+                                    ${mappedShopItems}
                                 </ul>
                             </div>
                         </div>
